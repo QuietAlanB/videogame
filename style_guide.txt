@@ -1,0 +1,215 @@
+###############################################################
+# --------------------- STYLE GUIDE ------------------------- #
+# FOLLOWING THIS IS MANDATORY FOR CONTRIBUTION TO THE PROJECT #
+# ---------------- PLEASE READ THOROUGHLY ------------------- #
+###############################################################
+
+I. INDENTATION, LAYOUT, AND ALIGNMENT
+
+   === a. Use sameline braces ===
+
+   No explanation required. Sameline braces are *always* used, even for function
+   definitions.
+
+   CORRECT:
+   ```c++
+   void fn() {
+   }
+   ```
+   
+   INCORRECT:
+   ```c++
+   void fn()
+   {
+   }
+   ```
+
+   === b. Only use braces when required ===
+
+   Again, this should be self-explanatory. Control flow expressions with only
+   one statement within them should not have braces, but should be indented.
+
+   CORRECT:
+   ```c++
+   if (something == another_thing)
+       do_something();
+   ```
+
+   CORRECT:
+   ```c++
+   if (something == another_thing) {
+       do_something();
+       do_another_thing();
+   }
+   ```
+
+   INCORRECT:
+   ```c++
+   if (something == another_thing) {
+       do_something();
+   }
+   ```
+
+   === c. Indent using tabs, align using spaces ===
+
+   Indentation is done using tabs for accessability purposes, while alignment is
+   done using spaces for uniformity. In the following code snippets, the '_'
+   character represents a space, and a '\' character represents a tab.
+
+   CORRECT (indentation):
+   ```c++
+   void fn() {
+   \   for (int i = 0; i < 100; ++i) {
+   \   \   std::cout << i << ' ';
+   \   \   do_something();
+   \   }
+   }
+   ```
+
+   CORRECT (alignment):
+   ```c++
+   void some_function(int which, int takes, int a, int lot, int of,
+   ___________________int arguments, int making, int the, int arglist, int wrap,
+   ___________________int around, int since, int it, int reaches,
+   ___________________int column80) {
+   }
+   ```
+
+   INCORRECT (indentation):
+   ```c++
+   void fn() {
+   ____for (int i = 0; i < 100; ++i) {
+   ________std::cout << i << ' ';
+   ________do_something();
+   ____}
+   }
+   ```
+
+   INCORRECT (alignment):
+   ```c++
+   void some_function(int which, int takes, int a, int lot, int of,
+   \   \   \   \   ___int arguments, int making, int the, int arglist, int wrap,
+   \   \   \   \   ___int around, int since, int it, int reaches,
+   \   \   \   \   ___int column80) {
+   }
+   ```
+
+   === d. Do not exceed 80 characters on a line ===
+
+   Very simple - or so you would think. See, different tab sizes lead to
+   different ideas of what "exceeding 80 characters on a line" is. To
+   disambiguate: you must count every tab as 4 characters. Even if you use
+   8-character tabs, you must still count one tab as 4 characters.
+
+   === e. Do not exceed 4 levels of indentation ===
+
+   Simple as. If you need more than 4 levels of indentation, you are doing
+   something wrong and should rework your program. If, for some reason, it is
+   absolutely necessary to use more than 4 indent-levels, please explain your
+   reasoning in a comment.
+
+   === f. Use east-const instead of west-const ===
+
+   Again, very simple. Attach the `const` keyword AFTER the type it modifies,
+   always.
+
+   CORRECT:
+   ```c++
+   int const &some_int_reference;
+   ```
+
+   INCORRECT:
+   ```c++
+   const int &some_int_reference;
+   ```
+
+II. CASING
+
+   === a. Always use snake case ===
+
+   There are several common case conventions - notably: `snake_case`,
+   `camelCase`, and `PascalCase`. For this project, always use `snake_case`.
+   Yes, even for class/struct/enum names.
+
+   CORRECT:
+   ```c++
+   class some_class {
+       void some_method();
+   };
+   ```
+
+   INCORRECT:
+   ```c++
+   class SomeClass {
+       void someMethod();
+   };
+   ```
+
+III. FILE NAMING AND HEADER GUARDS
+
+   === a. Do not capitalize filenames, almost ever ===
+
+   When creating a file, name it "nameoffile.hh" or "name_of_file.hh". Do not
+   call it "NameOfFile.hh" or whatever other deranged naming convention you have
+   learnt from Java.
+
+   === b. Hypens, underscores, files, and directories ===
+
+   If you choose to separate words in a filename, use an underscore. If you need
+   to do so for a directory, use a hyphen.
+
+   CORRECT:
+   ```sh
+   $ emacs -nw some-dir/another-dir/the_file.cc
+   ```
+
+   INCORRECT:
+   ```sh
+   $ emacs -nw some_dir/another_dir/the-file.cc
+   ```
+
+   === c. File extensions ===
+
+   Use `.cc` for C++ source, `.hh` for C++ header, `.c` for C source, and `.h`
+   for C header. Makefiles must either be called `Makefile`, or end with the
+   `.mk` file extension.
+
+   === d. Header guards ===
+
+   Do not use `#pragma once`, use actual header guards. Header guards must be
+   the capitalized form of the header's filename; followed by `_HH__` for C++,
+   and `_H__` for C.
+
+   EXAMPLES:
+   "some_header.hh" has header guard `SOME_HEADER_HH__`
+   "anotherone.h" has header guard `ANOTHERONE_H__`
+   "hi.hh" has header guard `HI_HH__`
+
+IV. COMMENTING
+
+   === a. Do not use old-C-style comments ===
+
+   Easy. Use `//` and not `/* */`. For multiline comments, just write the `//`
+   on each applicable line.
+
+   === b. Prefix your comments with your name ===
+
+   Take your GitHub username, and place it before your comment in the format
+   `// {GH username}: {comment}`. If it is a multiline comment, only place the
+   username on the first line.
+
+   CORRECT:
+   ```c++
+   // tirimid: This is a hacky fix, it should ideally be removed later.
+   // Also, make sure to do X, Y, Z.
+   // The code should not be modified to do this other thing.
+   // Blah blah blah...
+   ```
+
+   INCORRECT:
+   ```c++
+   // This is a hacky fix, it should ideally be removed later.
+   // tirimid: Also, make sure to do X, Y, Z.
+   // tirimid: The code should not be modified to do this other thing.
+   // Blah blah blah...
+   ``
