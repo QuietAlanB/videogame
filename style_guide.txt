@@ -123,6 +123,25 @@ I. INDENTATION, LAYOUT, AND ALIGNMENT
    const int &some_int_reference;
    ```
 
+   === g. Place reference/pointer qualifiers on the variable ===
+
+   It is sometimes common for programmers to place reference/pointer qualifiers
+   (`&`/`*`) on the type of a variable declaration. Do not do this. Always place
+   them on the identifier to avoid potential ambiguity in multi-variable
+   declarations.
+
+   CORRECT:
+   ```c++
+   int *a_variable;
+   int *one, *two, *three;
+   ```
+
+   INCORRECT:
+   ``` c++
+   int* a_variable;
+   int* one, *two, *three;
+   ```
+
 II. CASING
 
    === a. Always use snake case ===
@@ -153,7 +172,7 @@ III. FILE NAMING AND HEADER GUARDS
    call it "NameOfFile.hh" or whatever other deranged naming convention you have
    learnt from Java.
 
-   === b. Hypens, underscores, files, and directories ===
+   === b. Hyphens, underscores, files, and directories ===
 
    If you choose to separate words in a filename, use an underscore. If you need
    to do so for a directory, use a hyphen.
