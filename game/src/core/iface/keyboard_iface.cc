@@ -1,5 +1,7 @@
 #include "core/iface/keyboard_iface.hh"
 
+namespace core {
+
 keyboard_iface::keyboard_iface(std::shared_ptr<keyboard> &kbd) {
 	this->kbd = kbd;
 }
@@ -14,4 +16,6 @@ key_axis_id keyboard_iface::add_axis(key_axis const &axis) {
 
 int keyboard_iface::axis_value(key_axis_id id) const {
 	return kbd->axis_value(id);
+}
+
 }

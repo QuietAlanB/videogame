@@ -7,6 +7,8 @@
 
 #include "core/iface/iface.hh"
 
+namespace core {
+
 struct app_info {
 	struct {
 		std::pair<int, int> wnd_dims;
@@ -27,5 +29,7 @@ public:
 	void handle_event(SDL_Event const &e);
 	void run();
 };
+
+}
 
 #endif

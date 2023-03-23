@@ -7,6 +7,8 @@
 // original, now-unloaded, texture is requested.
 #define FALLBACK_TEX_PATH "res/tex/default.bmp"
 
+namespace core {
+
 SDL_Texture *load_bmp(SDL_Renderer *rend, std::filesystem::path const &path) {
 	SDL_Surface *surf = SDL_LoadBMP(path.string().c_str());
 	if (surf == nullptr)
@@ -62,4 +64,6 @@ graphics::graphics(std::string const &wnd_title, std::pair<int, int> wnd_dims) {
 graphics::~graphics() {
 	SDL_DestroyRenderer(rend);
 	SDL_DestroyWindow(wnd);
+}
+
 }

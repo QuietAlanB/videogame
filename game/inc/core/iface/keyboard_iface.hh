@@ -5,6 +5,8 @@
 
 #include "core/keyboard.hh"
 
+namespace core {
+
 class keyboard_iface {
 private:
 	std::shared_ptr<keyboard> kbd;
@@ -15,5 +17,7 @@ public:
 	key_axis_id add_axis(key_axis const &axis);
 	int axis_value(key_axis_id id) const;
 };
+
+}
 
 #endif

@@ -10,14 +10,14 @@ int main(int argc, char const *argv[]) {
 	LOG("starting program...");
 	SDL_Init(SDL_INIT_VIDEO);
 	
-	app_info info = {
+	core::app_info info = {
 		.gfx = {
 			.wnd_dims = std::make_pair(800, 600),
 			.wnd_title = "hello world",
 		},
 	};
 	
-	app(info).run();
+	core::app(info).run();
 	
 	SDL_Quit();
 	LOG("exiting program...");

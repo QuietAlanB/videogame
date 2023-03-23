@@ -2,6 +2,8 @@
 
 #include <SDL2/SDL.h>
 
+namespace core {
+
 app::app(app_info const &info) {
 	gfx = std::make_shared<graphics>(info.gfx.wnd_title, info.gfx.wnd_dims);
 	kbd = std::make_shared<keyboard>();
@@ -38,4 +40,6 @@ void app::run() {
 		iface_.gfx->draw_tex(smiley, 100, 100, 300, 300);
 		iface_.gfx->present();
 	}
+}
+
 }

@@ -10,6 +10,8 @@
 
 #include <SDL2/SDL.h>
 
+namespace core {
+
 // tirimid: `texture_pool`s return an alias for `size_t` which indexes into the
 // `pool` vector, allowing for the same texture to be stored in multiple places
 // without having it be loaded multiple times.
@@ -40,5 +42,7 @@ public:
 	graphics(std::string const &wnd_title, std::pair<int, int> wnd_dims);
 	~graphics();
 };
+
+}
 
 #endif

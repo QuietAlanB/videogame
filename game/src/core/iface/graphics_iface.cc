@@ -1,5 +1,7 @@
 #include "core/iface/graphics_iface.hh"
 
+namespace core {
+
 graphics_iface::graphics_iface(std::shared_ptr<graphics> &gfx) {
 	this->gfx = gfx;
 }
@@ -24,4 +26,6 @@ void graphics_iface::clear(uint8_t r, uint8_t g, uint8_t b) {
 
 void graphics_iface::present() {
 	SDL_RenderPresent(gfx->rend);
+}
+
 }

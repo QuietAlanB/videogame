@@ -7,6 +7,8 @@
 
 #include <SDL2/SDL.h>
 
+namespace core {
+
 #define MAX_KEY_AXIS_KEYCODES 4
 
 // tirimid: upon creation of `keyboard`, the horizontal and vertical axes are
@@ -34,5 +36,7 @@ public:
 	key_axis_id add_axis(key_axis const &axis);
 	int axis_value(key_axis_id id) const;
 };
+
+}
 
 #endif

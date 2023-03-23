@@ -1,5 +1,7 @@
 #include "core/keyboard.hh"
 
+namespace core {
+
 keyboard::keyboard() {
 	axes = std::vector<key_axis>();
 
@@ -57,4 +59,6 @@ int keyboard::axis_value(key_axis_id id) const {
 		}
 
 	return val;
+}
+
 }

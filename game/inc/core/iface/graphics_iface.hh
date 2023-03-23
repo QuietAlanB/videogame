@@ -5,6 +5,8 @@
 
 #include "core/graphics.hh"
 
+namespace core {
+
 class graphics_iface {
 private:
 	std::shared_ptr<graphics> gfx;
@@ -17,5 +19,7 @@ public:
 	void clear(uint8_t r, uint8_t g, uint8_t b);
 	void present();
 };
+
+}
 
 #endif
