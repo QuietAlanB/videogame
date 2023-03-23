@@ -8,7 +8,7 @@
 #define FALLBACK_TEX_PATH "res/tex/default.bmp"
 
 SDL_Texture *load_bmp(SDL_Renderer *rend, std::filesystem::path const &path) {
-	SDL_Surface *surf = SDL_LoadBMP(path.c_str());
+	SDL_Surface *surf = SDL_LoadBMP(path.string().c_str());
 	if (surf == nullptr)
 		ERROR("failed to load bmp: " + path.string());
 	
