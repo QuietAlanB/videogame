@@ -11,7 +11,7 @@ int main() {
 	
 	app_info info = {
 		.gfx = {
-			.wnd_dims = std::make_pair<int, int>(800, 600),
+			.wnd_dims = std::make_pair(800, 600),
 			.wnd_title = "hello world",
 		},
 	};

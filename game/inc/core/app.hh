@@ -37,6 +37,7 @@ public:
 	// does not need to be checked.
 	void request_buffered(request req, response *resp);
 	response request_now(request const &req);
+	void flush_req_buf();
 };
 
 class app {

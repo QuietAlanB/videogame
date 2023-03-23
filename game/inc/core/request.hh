@@ -3,21 +3,34 @@
 
 #include "core/graphics.hh"
 
-union request {
-	struct {
-		int x, y, w, h;
-		texture tex_id;
-	} gfx_draw_tex;
+enum class request_type {
+	gfx_present,
+	gfx_clear,
+	gfx_draw_tex,
 };
 
-// tirimid: the `status` field of each response designates a "return code" of
-// sorts for the given request.
-// unless specified otherwise, always assume that a `status` of `0` indicates a
-// success, showing that nothing went wrong.
-union response {
-	struct {
-		int status;
-	} gfx_draw_tex;
+struct request {
+	request_type type;
+	
+	union {
+		struct {
+			uint8_t r, g, b;
+		} gfx_clear;
+
+		struct {
+			int x, y, w, h;
+			texture tex_id;
+		} gfx_draw_tex;
+	};
+};
+
+struct response {
+	request_type type;
+
+	union {
+		// tirimid: none of the requests currently give any meaningful response.
+		// when adding responsive requests, define the responses here.
+	};
 };
 
 #endif
