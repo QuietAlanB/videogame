@@ -6,6 +6,7 @@
 #include <vector>
 #include <filesystem>
 #include <memory>
+#include <cstdint>
 
 #include <SDL2/SDL.h>
 
