@@ -31,5 +31,11 @@ LDFLAGS_WINDOWS := -L..\\$(DEPS_WINDOWS_SDL2_LIB_DIR) -lSDL2
 OUT_BIN_LINUX := game
 OUT_BIN_WINDOWS := game.exe
 
-CPP_SOURCES := main.cc core/app.cc core/graphics.cc core/keyboard.cc util/log.cc
+CPP_SOURCES := \
+	main.cc \
+	core/app.cc \
+	core/graphics.cc \
+	core/keyboard.cc \
+	util/log.cc
+
 C_SOURCES :=
