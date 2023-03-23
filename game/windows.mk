@@ -12,7 +12,7 @@ clean:
 	rmdir /s /q $(LIB_DIR)
 
 $(OUT_BIN_WINDOWS): $(CPP_OBJECTS) $(C_OBJECTS)
-	$(LD) $(LDFLAGS_WINDOWS) -o $(OUT_BIN_LINUX) $^
+	$(LD) -o $(OUT_BIN_LINUX) $^ $(LDFLAGS_WINDOWS)
 
 $(LIB_DIR)\\%.o: $(SRC_DIR)\\%.c
 	mkdir $@
