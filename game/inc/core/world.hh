@@ -6,6 +6,8 @@
 #include <optional>
 #include <memory>
 
+#include "util/vectorutil.hh"
+
 namespace core {
 
 class iface;
@@ -17,7 +19,7 @@ class component {
 public:
 	bool active = true;
 
-	virtual void on_update(game_object &go, iface &iface);
+	virtual void on_update(game_object &go, iface &iface) = 0;
 };
 
 class game_object {
@@ -27,17 +29,38 @@ private:
 public:
 	game_object(std::string const &name);
 	
-	// tirimid: here, `name` should be the literal name of the component as it
-	// is defined in the code.
-	// a component defined as `hello_comp` has a `name` of "hello_comp".
-	// if a `game_object` has just one of a given component, use `get_comp()` -
-	// otherwise, use `get_comps()`.
-	std::optional<std::shared_ptr<component>> get_comp(std::string const &name);
-	std::vector<std::shared_ptr<component>> get_comps(std::string const &name);
-	
+	// tirimid: if a `game_object` has just one of a given component, use
+	// `get_comp()` - otherwise, use `get_comps()`.
+	template<typename T>
+	std::optional<std::shared_ptr<component>> get_comp() {
+		auto cmp = [](std::shared_ptr<component> const &comp) {
+			return typeid(T) == typeid(*comp);
+		};
+		
+		return get_if_exists(comps, cmp);
+	}
+
+	template<typename T>
+	std::vector<std::shared_ptr<component>> get_comps(std::string const &name) {
+		auto cmp = [](std::shared_ptr<component> const &comp) {
+			return typeid(T) == typeid(*comp);
+		};
+		
+		return get_all(comps, cmp);
+	}
+
 	void add_comp(std::shared_ptr<component> comp);
 	void rm_comp(std::shared_ptr<component> const &comp);
-	void rm_comps(std::string const &name);
+
+	template<typename T>
+	void rm_comps(std::string const &name) {
+		auto cmp = [&](std::shared_ptr<component> const &comp) {
+			return typeid(T) == typeid(*comp);
+		};
+
+		rm_all_by_cmp(comps, cmp);
+	}
+	
 	void update(iface &iface);
 
 	friend class world;

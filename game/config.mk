@@ -38,10 +38,12 @@ CPP_SOURCES := \
 	core/app.cc \
 	core/graphics.cc \
 	core/keyboard.cc \
+	core/world.cc \
 	core/iface/graphics_iface.cc \
 	core/iface/keyboard_iface.cc \
 	core/iface/world_iface.cc \
-	core/world.cc \
+	core/comp/transform_comp.cc \
+	core/comp/sprite_comp.cc \
 	util/log.cc \
 	util/vec2.cc
 
