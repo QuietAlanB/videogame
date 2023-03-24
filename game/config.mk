@@ -48,8 +48,8 @@ CPP_SOURCES := \
 	util/vec2.cc
 
 CPP_SOURCES_LINUX := $(CPP_SOURCES)
-CPP_SOURCES_WINDOWS := $(subst /, \\, $(CPP_SOURCES))
+CPP_SOURCES_WINDOWS := $(subst /,\\,$(CPP_SOURCES))
 
 C_SOURCES :=
 C_SOURCES_LINUX := $(C_SOURCES)
-C_SOURCES_WINDOWS := $(subst /, \\, $(C_SOURCES))
+C_SOURCES_WINDOWS := $(subst /,\\,$(C_SOURCES))
