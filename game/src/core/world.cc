@@ -2,6 +2,41 @@
 
 #include <algorithm>
 
+template<typename T, typename F>
+static std::optional<T> get_if_exists(std::vector<T> &v, F const &cmp) {
+	for (T &i : v)
+		if (cmp(i))
+			return std::make_optional(i);
+	
+	return std::nullopt;
+}
+
+template<typename T, typename F>
+static std::vector<T> get_all(std::vector<T> &v, F const &cmp) {
+	std::vector<T> mat;
+
+	for (T &i : v)
+		if (cmp(i))
+			mat.push_back(i);
+
+	return mat;
+}
+
+template<typename T, typename F>
+static void rm_all_by_cmp(std::vector<T> &v, F const &cmp) {
+	v.erase(std::remove_if(v.begin(), v.end(), cmp), v.end());
+}
+
+template<typename T>
+static void rm_by_ptr_cmp(std::vector<std::shared_ptr<T>> &v,
+                          std::shared_ptr<T> const &ptr) {
+	auto cmp = [&](std::shared_ptr<T> const &other_ptr) {
+		return ptr.get() == other_ptr.get();
+	};
+
+	rm_all_by_cmp(v, cmp);
+}
+
 namespace core {
 
 game_object::game_object(std::string const &name) {
@@ -10,22 +45,20 @@ game_object::game_object(std::string const &name) {
 
 std::optional<std::shared_ptr<component>>
 game_object::get_comp(std::string const &name) {
-	for (std::shared_ptr<component> &comp : comps)
-		if (name == typeid(*comp).name())
-			return std::make_optional(comp);
-	
-	return std::nullopt;
+	auto cmp = [&](std::shared_ptr<component> const &comp) {
+		return name == typeid(*comp).name();
+	};
+
+	return get_if_exists(comps, cmp);
 }
 
 std::vector<std::shared_ptr<component>>
 game_object::get_comps(std::string const &name) {
-	std::vector<std::shared_ptr<component>> mat_comps;
+	auto cmp = [&](std::shared_ptr<component> const &comp) {
+		return name == typeid(*comp).name();
+	};
 	
-	for (std::shared_ptr<component> &comp : comps)
-		if (name == typeid(*comp).name())
-			mat_comps.push_back(comp);
-
-	return mat_comps;
+	return get_all(comps, cmp);
 }
 
 void game_object::add_comp(std::shared_ptr<component> comp) {
@@ -33,19 +66,15 @@ void game_object::add_comp(std::shared_ptr<component> comp) {
 }
 
 void game_object::rm_comp(std::shared_ptr<component> const &comp) {
-	auto chk = [&](std::shared_ptr<component> const &go_comp) {
-		return comp.get() == go_comp.get();
-	};
-
-	comps.erase(std::remove_if(comps.begin(), comps.end(), chk), comps.end());
+	rm_by_ptr_cmp(comps, comp);
 }
 
 void game_object::rm_comps(std::string const &name) {
-	auto chk = [&](std::shared_ptr<component> const &comp) {
+	auto cmp = [&](std::shared_ptr<component> const &comp) {
 		return name == typeid(*comp).name();
 	};
 
-	comps.erase(std::remove_if(comps.begin(), comps.end(), chk), comps.end());
+	rm_all_by_cmp(comps, cmp);
 }
 
 void game_object::update(iface &iface) {
@@ -56,22 +85,20 @@ void game_object::update(iface &iface) {
 
 std::optional<std::shared_ptr<game_object>>
 world::get_game_object(std::string const &name) {
-	for (std::shared_ptr<game_object> &go : game_objects)
-		if (name == go->name)
-			return std::make_optional(go);
+	auto cmp = [&](std::shared_ptr<game_object> const &go) {
+		return name == go->name;
+	};
 	
-	return std::nullopt;
+	return get_if_exists(game_objects, cmp);
 }
 
 std::vector<std::shared_ptr<game_object>>
 world::get_game_objects(std::string const &name) {
-	std::vector<std::shared_ptr<game_object>> mat_gos;
-	
-	for (std::shared_ptr<game_object> &go : game_objects)
-		if (name == go->name)
-			mat_gos.push_back(go);
+	auto cmp = [&](std::shared_ptr<game_object> const &go) {
+		return name == go->name;
+	};
 
-	return mat_gos;
+	return get_all(game_objects, cmp);
 }
 
 void world::add_game_object(std::shared_ptr<game_object> go) {
@@ -79,21 +106,15 @@ void world::add_game_object(std::shared_ptr<game_object> go) {
 }
 
 void world::rm_game_object(std::shared_ptr<game_object> const &go) {
-	auto chk = [&](std::shared_ptr<game_object> const &go_chk) {
-		return go_chk.get() == go.get();
-	};
-
-	auto rm_if = std::remove_if(game_objects.begin(), game_objects.end(), chk);
-	game_objects.erase(rm_if, game_objects.end());
+	rm_by_ptr_cmp(game_objects, go);
 }
 
 void world::rm_game_objects(std::string const &name) {
-	auto chk = [&](std::shared_ptr<game_object> const &go_chk) {
+	auto cmp = [&](std::shared_ptr<game_object> const &go_chk) {
 		return go_chk->name == name;
 	};
 
-	auto rm_if = std::remove_if(game_objects.begin(), game_objects.end(), chk);
-	game_objects.erase(rm_if, game_objects.end());
+	rm_all_by_cmp(game_objects, cmp);
 }
 
 void world::update(iface &iface) {

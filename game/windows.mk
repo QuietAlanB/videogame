@@ -15,11 +15,11 @@ $(OUT_BIN_WINDOWS): $(CPP_OBJECTS) $(C_OBJECTS)
 	$(LD) -o $@ $^ $(LDFLAGS_WINDOWS)
 
 $(LIB_DIR)\\%.o: $(SRC_DIR)\\%.c
-	mkdir $@
-	rmdir $@
+	@ mkdir $@
+	@ rmdir $@
 	$(CC) $(CFLAGS_WINDOWS) -o $@ $<
 
 $(LIB_DIR)\\%.o: $(SRC_DIR)\\%.cc
-	mkdir $@
-	rmdir $@
+	@ mkdir $@
+	@ rmdir $@
 	$(CPP) $(CPPFLAGS_WINDOWS) -o $@ $<

@@ -9,7 +9,7 @@ CPP := g++
 LD := g++
 
 CFLAGS_LINUX := -std=c17 -pedantic -c -I$(INC_DIR)
-CPPFLAGS_LINUX := -std=c++20 -pedantic -c -I$(INC_DIR)
+CPPFLAGS_LINUX := -std=c++20 -pedantic -c -I$(INC_DIR) -DFAST_INVERSE_SQRT
 
 CFLAGS_WINDOWS := \
 	-std=c17 \
@@ -42,7 +42,8 @@ CPP_SOURCES := \
 	core/iface/keyboard_iface.cc \
 	core/iface/world_iface.cc \
 	core/world.cc \
-	util/log.cc
+	util/log.cc \
+	util/vec2.cc
 
 CPP_SOURCES_LINUX := $(CPP_SOURCES)
 CPP_SOURCES_WINDOWS := $(subst /, \\, $(CPP_SOURCES))

@@ -14,11 +14,11 @@ $(OUT_BIN_LINUX): $(CPP_OBJECTS) $(C_OBJECTS)
 	$(LD) $(LDFLAGS_LINUX) -o $@ $^
 
 $(LIB_DIR)/%.o: $(SRC_DIR)/%.c
-	mkdir -p $@
-	rmdir $@
+	@ mkdir -p $@
+	@ rmdir $@
 	$(CC) $(CFLAGS_LINUX) -o $@ $<
 
 $(LIB_DIR)/%.o: $(SRC_DIR)/%.cc
-	mkdir -p $@
-	rmdir $@
+	@ mkdir -p $@
+	@ rmdir $@
 	$(CPP) $(CPPFLAGS_LINUX) -o $@ $<
