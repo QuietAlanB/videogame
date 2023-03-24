@@ -31,18 +31,18 @@ texture_pool::~texture_pool() {
 			SDL_DestroyTexture(tex);
 }
 
-texture texture_pool::load_texture(SDL_Renderer *rend,
-                                  std::filesystem::path const &path) {
+texture_id texture_pool::load_texture(SDL_Renderer *rend,
+                                      std::filesystem::path const &path) {
 	pool.push_back(load_bmp(rend, path));
 	return pool.size() - 1;
 }
 
-void texture_pool::unload_texture(texture tex_id) {
+void texture_pool::unload_texture(texture_id tex_id) {
 	SDL_DestroyTexture(pool[tex_id]);
 	pool[tex_id] = fallback_tex;
 }
 
-SDL_Texture *texture_pool::get_texture(texture tex_id) {
+SDL_Texture *texture_pool::get_texture(texture_id tex_id) {
 	return pool[tex_id];
 }
 

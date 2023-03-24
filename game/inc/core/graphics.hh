@@ -16,7 +16,7 @@ namespace core {
 // `pool` vector, allowing for the same texture to be stored in multiple places
 // without having it be loaded multiple times.
 // effectively a `SDL_Texture *` reference, but conceptually easier.
-typedef size_t texture;
+typedef size_t texture_id;
 
 SDL_Texture *load_bmp(SDL_Renderer *rend, std::filesystem::path const &path);
 
@@ -28,9 +28,11 @@ public:
 	texture_pool(SDL_Renderer *rend);
 	~texture_pool();
 
-	texture load_texture(SDL_Renderer *rend, std::filesystem::path const &path);
-	void unload_texture(texture tex_id);
-	SDL_Texture *get_texture(texture tex_id);
+	texture_id load_texture(SDL_Renderer *rend,
+	                        std::filesystem::path const &path);
+	
+	void unload_texture(texture_id tex_id);
+	SDL_Texture *get_texture(texture_id tex_id);
 };
 
 class graphics {

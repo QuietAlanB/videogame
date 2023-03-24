@@ -40,6 +40,7 @@ CPP_SOURCES := \
 	core/keyboard.cc \
 	core/iface/graphics_iface.cc \
 	core/iface/keyboard_iface.cc \
+	core/iface/world_iface.cc \
 	core/world.cc \
 	util/log.cc
 

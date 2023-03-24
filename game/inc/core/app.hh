@@ -19,10 +19,11 @@ struct app_info {
 class app {
 private:
 	bool running = false;
-	iface iface_;
+	core::iface iface;
 public:
 	std::shared_ptr<graphics> gfx;
 	std::shared_ptr<keyboard> kbd;
+	std::shared_ptr<core::world> world;
 	
 	app(app_info const &info);
 
