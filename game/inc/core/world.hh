@@ -41,7 +41,7 @@ public:
 	}
 
 	template<typename T>
-	std::vector<std::shared_ptr<component>> get_comps(std::string const &name) {
+	std::vector<std::shared_ptr<component>> get_comps() {
 		auto cmp = [](std::shared_ptr<component> const &comp) {
 			return typeid(T) == typeid(*comp);
 		};
@@ -54,7 +54,7 @@ public:
 
 	template<typename T>
 	void rm_comps(std::string const &name) {
-		auto cmp = [&](std::shared_ptr<component> const &comp) {
+		auto cmp = [](std::shared_ptr<component> const &comp) {
 			return typeid(T) == typeid(*comp);
 		};
 
