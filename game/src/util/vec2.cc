@@ -15,19 +15,19 @@ vec2::vec2(float x, float y) {
 	this->y = y;
 }
 
-vec2 vec2::operator+(float rhs) {
+vec2 vec2::operator+(float rhs) const {
 	return vec2(x + rhs, y + rhs);
 }
 
-vec2 vec2::operator-(float rhs) {
+vec2 vec2::operator-(float rhs) const {
 	return vec2(x - rhs, y - rhs);
 }
 
-vec2 vec2::operator*(float rhs) {
+vec2 vec2::operator*(float rhs) const {
 	return vec2(x * rhs, y * rhs);
 }
 
-vec2 vec2::operator/(float rhs) {
+vec2 vec2::operator/(float rhs) const {
 	return vec2(x / rhs, y / rhs);
 }
 
@@ -51,19 +51,19 @@ void vec2::operator/=(float rhs) {
 	y /= rhs;
 }
 
-vec2 vec2::operator+(vec2 const &rhs) {
+vec2 vec2::operator+(vec2 const &rhs) const {
 	return vec2(x + rhs.x, y + rhs.y);
 }
 
-vec2 vec2::operator-(vec2 const &rhs) {
+vec2 vec2::operator-(vec2 const &rhs) const {
 	return vec2(x - rhs.x, y - rhs.y);
 }
 
-vec2 vec2::operator*(vec2 const &rhs) {
+vec2 vec2::operator*(vec2 const &rhs) const {
 	return vec2(x * rhs.x, y * rhs.y);
 }
 
-vec2 vec2::operator/(vec2 const &rhs) {
+vec2 vec2::operator/(vec2 const &rhs) const {
 	return vec2(x / rhs.x, y / rhs.y);
 }
 
@@ -87,19 +87,19 @@ void vec2::operator/=(vec2 const &rhs) {
 	y /= rhs.y;
 }
 
-bool vec2::operator==(vec2 const &rhs) {
+bool vec2::operator==(vec2 const &rhs) const {
 	return x == rhs.x && y == rhs.y;
 }
 
-bool vec2::operator!=(vec2 const &rhs) {
+bool vec2::operator!=(vec2 const &rhs) const {
 	return x != rhs.x || y != rhs.y;
 }
 
-float vec2::magnitude() {
+float vec2::magnitude() const {
 	return sqrt(x * x + y * y);
 }
 
-vec2 vec2::normalized() {
+vec2 vec2::normalized() const {
 #ifdef FAST_INVERSE_SQRT
 	float num = x * x + y * y, x2 = num * 0.5f;
 	long i = *(long *)&num;
@@ -113,6 +113,6 @@ vec2 vec2::normalized() {
 	return vec2(x / num, y / num);
 }
 
-float vec2::dot(vec2 const &other) {
+float vec2::dot(vec2 const &other) const {
 	return x * other.x + y * other.y;
 }

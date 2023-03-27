@@ -8,8 +8,12 @@ CC := gcc
 CPP := g++
 LD := g++
 
-CFLAGS_LINUX := -std=c17 -pedantic -c -I$(INC_DIR)
-CPPFLAGS_LINUX := -std=c++20 -pedantic -c -I$(INC_DIR) -DFAST_INVERSE_SQRT
+C_MODS :=
+CPP_MODS := -DFAST_INVERSE_SQRT
+
+CFLAGS_LINUX := -std=c17 -pedantic -c -I$(INC_DIR) $(C_MODS)
+CPPFLAGS_LINUX := -std=c++20 -pedantic -c -I$(INC_DIR) $(CPP_MODS)
+LDFLAGS_LINUX := -lSDL2
 
 CFLAGS_WINDOWS := \
 	-std=c17 \
@@ -25,8 +29,11 @@ CPPFLAGS_WINDOWS := \
 	-I$(INC_DIR) \
 	-I..\\$(DEPS_WINDOWS_SDL2_INC_DIR)
 
-LDFLAGS_LINUX := -lSDL2
-LDFLAGS_WINDOWS := -L..\\$(DEPS_WINDOWS_SDL2_LIB_DIR) -lmingw32 -lSDL2main -lSDL2
+LDFLAGS_WINDOWS := \
+	-L..\\$(DEPS_WINDOWS_SDL2_LIB_DIR) \
+	-lmingw32 \
+	-lSDL2main \
+	-lSDL2
 
 OUT_BIN_LINUX := game
 OUT_BIN_WINDOWS := game.exe
@@ -39,13 +46,19 @@ CPP_SOURCES := \
 	core/graphics.cc \
 	core/keyboard.cc \
 	core/world.cc \
+	core/timer.cc \
 	core/iface/graphics_iface.cc \
 	core/iface/keyboard_iface.cc \
 	core/iface/world_iface.cc \
+	core/iface/timer_iface.cc \
 	core/comp/transform_comp.cc \
 	core/comp/sprite_comp.cc \
+	core/comp/aaboxcol_comp.cc \
+	core/comp/dynamic_comp.cc \
+	core/comp/colbase.cc \
 	util/log.cc \
-	util/vec2.cc
+	util/vec2.cc \
+	util/mat2.cc
 
 CPP_SOURCES_LINUX := $(CPP_SOURCES)
 CPP_SOURCES_WINDOWS := $(subst /,\\,$(CPP_SOURCES))

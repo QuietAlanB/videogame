@@ -31,10 +31,9 @@ static void rm_all_by_cmp(std::vector<T> &v, F const &cmp) {
 }
 
 template<typename T>
-static void rm_by_ptr_cmp(std::vector<std::shared_ptr<T>> &v,
-                          std::shared_ptr<T> const &ptr) {
+static void rm_by_ptr_cmp(std::vector<std::shared_ptr<T>> &v, T const *ptr) {
 	auto cmp = [&](std::shared_ptr<T> const &other_ptr) {
-		return ptr.get() == other_ptr.get();
+		return ptr == other_ptr.get();
 	};
 
 	rm_all_by_cmp(v, cmp);

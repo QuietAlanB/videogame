@@ -5,7 +5,7 @@
 
 // tirimid: use these macros instead of their function counterparts.
 #define LOG(msg) _log(__FILE__, __func__, __LINE__, msg)
-#define WARNING(msg) _warn(__FILE__, __func__, __LINE__, msg)
+#define WARNING(msg) _wrn(__FILE__, __func__, __LINE__, msg)
 #define ERROR(msg) _err(__FILE__, __func__, __LINE__, msg)
 
 // tirimid: internal - do not call.

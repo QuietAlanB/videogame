@@ -14,6 +14,10 @@ struct app_info {
 		std::pair<int, int> wnd_dims;
 		std::string wnd_title;
 	} gfx;
+
+	struct {
+		unsigned max_tps;
+	} timer;
 };
 
 class app {
@@ -24,6 +28,7 @@ public:
 	std::shared_ptr<graphics> gfx;
 	std::shared_ptr<keyboard> kbd;
 	std::shared_ptr<core::world> world;
+	std::shared_ptr<core::timer> timer;
 	
 	app(app_info const &info);
 

@@ -4,6 +4,8 @@
 
 #include "core/comp/transform_comp.hh"
 #include "core/comp/sprite_comp.hh"
+#include "core/comp/dynamic_comp.hh"
+#include "core/comp/aaboxcol_comp.hh"
 
 namespace core {
 
@@ -11,10 +13,12 @@ app::app(app_info const &info) {
 	gfx = std::make_shared<graphics>(info.gfx.wnd_title, info.gfx.wnd_dims);
 	kbd = std::make_shared<keyboard>();
 	world = std::make_shared<core::world>();
+	timer = std::make_shared<core::timer>(info.timer.max_tps);
 
 	iface.gfx = std::make_unique<graphics_iface>(gfx);
 	iface.kbd = std::make_unique<keyboard_iface>(kbd);
 	iface.world = std::make_unique<world_iface>(world, &iface);
+	iface.timer = std::make_unique<timer_iface>(timer);
 }
 
 void app::handle_event(SDL_Event const &e) {
@@ -33,28 +37,50 @@ void app::handle_event(SDL_Event const &e) {
 
 void app::run() {
 	std::filesystem::path smiley_path = "res/tex/smiley.bmp";
+	std::filesystem::path bricks_path = "res/tex/bricks.bmp";
 	texture_id smiley = iface.gfx->load_tex(smiley_path);
+	texture_id bricks = iface.gfx->load_tex(bricks_path);
 
-	auto go = std::make_shared<game_object>("smiley");
-	auto trans = std::make_shared<transform_comp>(vec2(70.0f, 70.0f),
-	                                              vec2(100.0f, 100.0f), 0.0f);
-	auto sprite = std::make_shared<sprite_comp>(smiley);
+	auto go0 = std::make_shared<game_object>("smiley");
+	auto trans0 = std::make_shared<transform_comp>(vec2(300.0f, 200.0f),
+	                                               vec2(60.0f, 60.0f), 0.0f);
+	auto sprite0 = std::make_shared<sprite_comp>(smiley);
+	auto dynamic0 = std::make_shared<dynamic_comp>();
+	auto aaboxcol0 = std::make_shared<aaboxcol_comp>(nullptr, nullptr, nullptr);
 
-	go->add_comp(std::static_pointer_cast<component>(trans));
-	go->add_comp(std::static_pointer_cast<component>(sprite));
+	auto go1 = std::make_shared<game_object>("bricks");
+	auto trans1 = std::make_shared<transform_comp>(vec2(500.0f, 200.0f),
+	                                               vec2(100.0f, 100.0f), 0.0f);
+	auto sprite1 = std::make_shared<sprite_comp>(bricks);
+	auto aaboxcol1 = std::make_shared<aaboxcol_comp>(nullptr, nullptr, nullptr);
 
-	world->add_game_object(go);
+	dynamic0->vel = vec2(2.8f, -5.8f);
+	
+	go0->add_comp(trans0);
+	go0->add_comp(sprite0);
+	go0->add_comp(dynamic0);
+	go0->add_comp(aaboxcol0);
+
+	go1->add_comp(trans1);
+	go1->add_comp(sprite1);
+	go1->add_comp(aaboxcol1);
+
+	world->add_game_object(go0);
+	world->add_game_object(go1);
 
 	running = true;
 	while (running) {
+		timer->start();
+		
 		SDL_Event e;
 		while (SDL_PollEvent(&e))
 			handle_event(e);
 		
 		iface.gfx->clear(70, 140, 240);
-		trans->pos.x += 0.01f;
 		world->update(iface);
 		iface.gfx->present();
+
+		timer->end();
 	}
 }
 

@@ -11,7 +11,7 @@ clean:
 	rm -rf $(OUT_BIN_LINUX) $(LIB_DIR)/*
 
 $(OUT_BIN_LINUX): $(CPP_OBJECTS) $(C_OBJECTS)
-	$(LD) $(LDFLAGS_LINUX) -o $@ $^
+	$(LD) -o $@ $^ $(LDFLAGS_LINUX)
 
 $(LIB_DIR)/%.o: $(SRC_DIR)/%.c
 	@ mkdir -p $@

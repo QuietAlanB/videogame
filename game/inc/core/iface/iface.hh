@@ -6,6 +6,7 @@
 #include "core/iface/graphics_iface.hh"
 #include "core/iface/keyboard_iface.hh"
 #include "core/iface/world_iface.hh"
+#include "core/iface/timer_iface.hh"
 
 namespace core {
 
@@ -14,6 +15,7 @@ public:
 	std::unique_ptr<graphics_iface> gfx;
 	std::unique_ptr<keyboard_iface> kbd;
 	std::unique_ptr<world_iface> world;
+	std::unique_ptr<timer_iface> timer;
 };
 
 }

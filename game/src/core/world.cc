@@ -6,14 +6,6 @@ game_object::game_object(std::string const &name) {
 	this->name = name;
 }
 
-void game_object::add_comp(std::shared_ptr<component> comp) {
-	comps.push_back(comp);
-}
-
-void game_object::rm_comp(std::shared_ptr<component> const &comp) {
-	rm_by_ptr_cmp(comps, comp);
-}
-
 void game_object::update(iface &iface) {
 	for (std::shared_ptr<component> &comp : comps)
 		if (comp->active)
@@ -38,12 +30,12 @@ world::get_game_objects(std::string const &name) {
 	return get_all(game_objects, cmp);
 }
 
-void world::add_game_object(std::shared_ptr<game_object> go) {
+void world::add_game_object(std::shared_ptr<game_object> const &go) {
 	game_objects.push_back(go);
 }
 
 void world::rm_game_object(std::shared_ptr<game_object> const &go) {
-	rm_by_ptr_cmp(game_objects, go);
+	rm_by_ptr_cmp(game_objects, go.get());
 }
 
 void world::rm_game_objects(std::string const &name) {

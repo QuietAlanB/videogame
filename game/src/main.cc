@@ -15,6 +15,9 @@ int main(int argc, char const *argv[]) {
 			.wnd_dims = std::make_pair(800, 600),
 			.wnd_title = "hello world",
 		},
+		.timer = {
+			.max_tps = 72,
+		},
 	};
 	
 	core::app(info).run();
