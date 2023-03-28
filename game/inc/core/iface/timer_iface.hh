@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <chrono>
+#include <cstdint>
 
 #include "core/timer.hh"
 
@@ -16,7 +17,9 @@ private:
 public:
 	timer_iface(std::shared_ptr<core::timer> &timer);
 
-	std::chrono::milliseconds delta_time();
+	std::chrono::milliseconds delta_time() const;
+	uint64_t current_tick() const;
+	uint64_t elapsed_ticks() const;
 };
 
 };

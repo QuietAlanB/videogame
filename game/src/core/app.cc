@@ -70,7 +70,6 @@ void app::run() {
 	world->add_game_object(go1);
 
 	audio ad;
-
 	sound_id num7_id = ad.snd_pool.load_sound("res/sfx/num7.wav");
 
 	ad.snd_pool.play_sound(num7_id);
@@ -78,7 +77,7 @@ void app::run() {
 	running = true;
 	while (running) {
 		timer->start();
-		
+
 		SDL_Event e;
 		while (SDL_PollEvent(&e))
 			handle_event(e);

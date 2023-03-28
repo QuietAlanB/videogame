@@ -11,6 +11,7 @@ timer::timer(unsigned max_tps) {
 
 void timer::start() {
 	tp_start = std::chrono::system_clock::now();
+	++tick;
 }
 
 void timer::end() {
@@ -23,9 +24,17 @@ void timer::end() {
 	SDL_Delay(1000.0 / static_cast<double>(max_tps) - ms.count());
 }
 
-std::chrono::milliseconds timer::last_delta() {
+std::chrono::milliseconds timer::last_delta() const {
 	auto dur = tp_prev_end - tp_prev_start;
 	return std::chrono::duration_cast<std::chrono::milliseconds>(dur);
+}
+
+uint64_t timer::current_tick() const {
+	return tick;
+}
+
+uint64_t timer::elapsed_ticks() const {
+	return tick == 0 ? 0 : tick - 1;
 }
 
 }
