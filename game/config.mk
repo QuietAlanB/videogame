@@ -47,6 +47,7 @@ CPP_SOURCES := \
 	core/keyboard.cc \
 	core/world.cc \
 	core/timer.cc \
+	core/audio.cc \
 	core/iface/graphics_iface.cc \
 	core/iface/keyboard_iface.cc \
 	core/iface/world_iface.cc \

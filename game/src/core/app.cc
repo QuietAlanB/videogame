@@ -6,6 +6,7 @@
 #include "core/comp/sprite_comp.hh"
 #include "core/comp/dynamic_comp.hh"
 #include "core/comp/aaboxcol_comp.hh"
+#include "core/audio.hh"
 
 namespace core {
 
@@ -68,6 +69,12 @@ void app::run() {
 	world->add_game_object(go0);
 	world->add_game_object(go1);
 
+	audio ad;
+
+	sound_id num7_id = ad.snd_pool.load_sound("res/sfx/num7.wav");
+
+	ad.snd_pool.play_sound(num7_id);
+
 	running = true;
 	while (running) {
 		timer->start();
@@ -75,8 +82,9 @@ void app::run() {
 		SDL_Event e;
 		while (SDL_PollEvent(&e))
 			handle_event(e);
-		
+
 		iface.gfx->clear(70, 140, 240);
+
 		world->update(iface);
 		iface.gfx->present();
 

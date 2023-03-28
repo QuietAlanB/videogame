@@ -8,7 +8,7 @@
 
 int main(int argc, char const *argv[]) {
 	LOG("starting program...");
-	SDL_Init(SDL_INIT_VIDEO);
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	
 	core::app_info info = {
 		.gfx = {
