@@ -9,7 +9,7 @@ namespace core {
 
 class audio_iface {
 private:
-	std::shared_ptr<audio> audio;
+	std::shared_ptr<core::audio> audio;
 public:
 	audio_iface(std::shared_ptr<core::audio> &audio);
 
