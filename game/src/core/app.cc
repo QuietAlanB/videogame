@@ -6,7 +6,6 @@
 #include "core/comp/sprite_comp.hh"
 #include "core/comp/dynamic_comp.hh"
 #include "core/comp/aaboxcol_comp.hh"
-#include "core/audio.hh"
 
 namespace core {
 
@@ -15,11 +14,13 @@ app::app(app_info const &info) {
 	kbd = std::make_shared<keyboard>();
 	world = std::make_shared<core::world>();
 	timer = std::make_shared<core::timer>(info.timer.max_tps);
+	audio = std::make_shared<core::audio>();
 
 	iface.gfx = std::make_unique<graphics_iface>(gfx);
 	iface.kbd = std::make_unique<keyboard_iface>(kbd);
 	iface.world = std::make_unique<world_iface>(world, &iface);
 	iface.timer = std::make_unique<timer_iface>(timer);
+	iface.audio = std::make_unique<audio_iface>(audio);
 }
 
 void app::handle_event(SDL_Event const &e) {
@@ -39,8 +40,10 @@ void app::handle_event(SDL_Event const &e) {
 void app::run() {
 	std::filesystem::path smiley_path = "res/tex/smiley.bmp";
 	std::filesystem::path bricks_path = "res/tex/bricks.bmp";
+	std::filesystem::path num7_path = "res/sfx/num7.wav";
 	texture_id smiley = iface.gfx->load_tex(smiley_path);
 	texture_id bricks = iface.gfx->load_tex(bricks_path);
+	sound_id num7 = iface.audio->load_sound(num7_path);
 
 	auto go0 = std::make_shared<game_object>("smiley");
 	auto trans0 = std::make_shared<transform_comp>(vec2(300.0f, 200.0f),
@@ -69,10 +72,7 @@ void app::run() {
 	world->add_game_object(go0);
 	world->add_game_object(go1);
 
-	audio ad;
-	sound_id num7_id = ad.snd_pool.load_sound("res/sfx/num7.wav");
-
-	ad.snd_pool.play_sound(num7_id);
+	iface.audio->play_sound(num7);
 
 	running = true;
 	while (running) {

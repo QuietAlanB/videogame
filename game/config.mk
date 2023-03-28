@@ -52,6 +52,7 @@ CPP_SOURCES := \
 	core/iface/keyboard_iface.cc \
 	core/iface/world_iface.cc \
 	core/iface/timer_iface.cc \
+	core/iface/audio_iface.cc \
 	core/comp/transform_comp.cc \
 	core/comp/sprite_comp.cc \
 	core/comp/aaboxcol_comp.cc \
