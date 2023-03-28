@@ -29,6 +29,7 @@ public:
 	std::shared_ptr<keyboard> kbd;
 	std::shared_ptr<core::world> world;
 	std::shared_ptr<core::timer> timer;
+	std::shared_ptr<core::audio> audio;
 	
 	app(app_info const &info);
 
