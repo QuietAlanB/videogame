@@ -1,5 +1,7 @@
 #include "core/timer.hh"
 
+#include <cstdint>
+
 #include <SDL2/SDL.h>
 
 namespace core {
@@ -21,7 +23,9 @@ void timer::end() {
 
 	auto dur = end - tp_start;
 	auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(dur);
-	SDL_Delay(1000.0 / static_cast<double>(max_tps) - ms.count());
+	double delay = 1000.0 / static_cast<double>(max_tps);
+	delay -= delay - ms.count() > 0.0 ? ms.count() : 0.0;
+	SDL_Delay(static_cast<uint32_t>(delay));
 }
 
 std::chrono::milliseconds timer::last_delta() const {
